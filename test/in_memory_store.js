@@ -1,21 +1,23 @@
-var uid = require('uid2');
+var uid = require("uid2");
 
 function Store() {
   this.clear();
 }
 
-Store.prototype.save = function(req, data, cb) {
+Store.prototype.save = function (req, data, cb) {
   var key = uid(8);
   return this.update(req, key, data, cb);
 };
 
-Store.prototype.update = function(req, key, data, cb) {
+Store.prototype.update = function (req, key, data, cb) {
   this._memoryStore[key] = data;
-  if (cb) { cb(null, key); }
+  if (cb) {
+    cb(null, key);
+  }
 };
 
-Store.prototype.load = function(req, key, options, cb) {
-  if (typeof options === 'function') {
+Store.prototype.load = function (req, key, options, cb) {
+  if (typeof options === "function") {
     cb = options;
     options = {};
   }
@@ -28,10 +30,11 @@ Store.prototype.load = function(req, key, options, cb) {
   cb(null, result);
 };
 
-Store.prototype.clear = function(cb) {
+Store.prototype.clear = function (cb) {
   this._memoryStore = {};
-  if (cb) { cb(); }
+  if (cb) {
+    cb();
+  }
 };
-
 
 module.exports = Store;

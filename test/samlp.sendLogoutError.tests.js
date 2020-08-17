@@ -47,7 +47,7 @@ describe('samlp logout error', function() {
         expect(html).to.be.ok;
         const $ = cheerio.load(html);
         const SAMLResponse = $('input[name="SAMLResponse"]').attr('value');
-        const RelayState = $('input[name="RelayState"]').attr('value');        
+        const RelayState = $('input[name="RelayState"]').attr('value');
         const decoded = new Buffer(SAMLResponse, 'base64').toString();
         expect(decoded).to.be.ok;
         expect(xmlhelper.getDestination(decoded)).to.equal(options.destination);
@@ -58,7 +58,7 @@ describe('samlp logout error', function() {
 
     samlp.sendLogoutError(options)(req, res, next);
   });
-  
+
   it('should send specified error', function(){
     const options = Object.assign({}, baseOptions, {
       error: {
@@ -71,7 +71,7 @@ describe('samlp logout error', function() {
         expect(html).to.be.ok;
         const $ = cheerio.load(html);
         const SAMLResponse = $('input[name="SAMLResponse"]').attr('value');
-        const RelayState = $('input[name="RelayState"]').attr('value');        
+        const RelayState = $('input[name="RelayState"]').attr('value');
         const decoded = new Buffer(SAMLResponse, 'base64').toString();
         expect(decoded).to.be.ok;
         expect(xmlhelper.getDestination(decoded)).to.equal(options.destination);
@@ -80,7 +80,7 @@ describe('samlp logout error', function() {
       }
     });
 
-    samlp.sendLogoutError(options)(req, res, next);    
+    samlp.sendLogoutError(options)(req, res, next);
   });
 
   it('should include description in response', function(){
@@ -96,7 +96,7 @@ describe('samlp logout error', function() {
         expect(html).to.be.ok;
         const $ = cheerio.load(html);
         const SAMLResponse = $('input[name="SAMLResponse"]').attr('value');
-        const RelayState = $('input[name="RelayState"]').attr('value');        
+        const RelayState = $('input[name="RelayState"]').attr('value');
         const decoded = new Buffer(SAMLResponse, 'base64').toString();
         expect(decoded).to.be.ok;
         expect(xmlhelper.getDestination(decoded)).to.equal(options.destination);
@@ -106,12 +106,12 @@ describe('samlp logout error', function() {
       }
     });
 
-    samlp.sendLogoutError(options)(req, res, next);    
+    samlp.sendLogoutError(options)(req, res, next);
   });
 
   it('should return redirect if HTTP-Redirect binding is defined', function(done){
     const options = Object.assign({}, baseOptions, {
-      protocolBinding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',      
+      protocolBinding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
       deflate: true
     });
 
@@ -120,7 +120,7 @@ describe('samlp logout error', function() {
         const q = url.parse(redirect_uri, true).query;
         zlib.inflateRaw(new Buffer(q.SAMLResponse, 'base64'), function (err, decodedAndInflated) {
           if(err) return done(err);
-          
+
           var decoded = decodedAndInflated.toString();
           expect(decoded).to.be.ok;
           expect(xmlhelper.getDestination(decoded)).to.equal(options.destination);
@@ -129,7 +129,7 @@ describe('samlp logout error', function() {
       }
     });
 
-    samlp.sendLogoutError(options)(req, res, next);    
+    samlp.sendLogoutError(options)(req, res, next);
   });
 
   it('should use options relay state if defined', function(){
@@ -142,7 +142,7 @@ describe('samlp logout error', function() {
         expect(html).to.be.ok;
         const $ = cheerio.load(html);
         const SAMLResponse = $('input[name="SAMLResponse"]').attr('value');
-        const RelayState = $('input[name="RelayState"]').attr('value');        
+        const RelayState = $('input[name="RelayState"]').attr('value');
         const decoded = new Buffer(SAMLResponse, 'base64').toString();
         expect(decoded).to.be.ok;
         expect(xmlhelper.getDestination(decoded)).to.equal(options.destination);
@@ -150,7 +150,7 @@ describe('samlp logout error', function() {
       }
     });
 
-    samlp.sendLogoutError(options)(req, res, next);    
+    samlp.sendLogoutError(options)(req, res, next);
   });
 
   it('should call next with error if options.destination is not defined', function(){
@@ -160,6 +160,6 @@ describe('samlp logout error', function() {
     samlp.sendLogoutError(options)(req, null, (err) => {
       expect(err).to.be.ok;
       expect(err.message).to.equal('Destination not specified');
-    });    
+    });
   });
 });

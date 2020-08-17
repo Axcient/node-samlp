@@ -129,6 +129,6 @@ describe('samlp parse response', function() {
  function encodeAndDeflate(xml, cb){
   zlib.deflateRaw(new Buffer(xml), function (err, buffer) {
     if (err) {return cb(err); }
-    cb(null, buffer.toString('base64'));  
+    cb(null, buffer.toString('base64'));
   });
 };

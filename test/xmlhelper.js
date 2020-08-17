@@ -20,7 +20,7 @@ exports.verifySignature = function(assertion, cert) {
     if (!result) {
       console.log(sig.validationErrors);
     }
-    
+
     return result;
   } catch (e) {
     console.log(e);
