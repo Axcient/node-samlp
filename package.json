@@ -24,7 +24,7 @@
     "ejs": "3.1.5",
     "flowstate": "0.4.1",
     "querystring": "0.2.0",
-    "saml": "0.14",
+    "saml": "0.14.0",
     "xml-crypto": "1.5.3",
     "xmldom": "auth0/xmldom#v0.1.19-auth0_1",
     "xpath": "0.0.5",
