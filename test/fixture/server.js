@@ -69,7 +69,7 @@ module.exports.start = function (options, callback) {
       )
     )(req, res, function (err) {
       if (err) {
-        return res.send(400, err.message);
+        return res.send(err.status || 400, err.message);
       }
       next();
     });
@@ -100,7 +100,7 @@ module.exports.start = function (options, callback) {
       )
     )(req, res, function (err) {
       if (err) {
-        return res.send(400, err.message);
+        return res.send(err.status || 400, err.message);
       }
       next();
     });
@@ -120,7 +120,7 @@ module.exports.start = function (options, callback) {
       )
     )(req, res, function (err) {
       if (err) {
-        return res.send(400, err.message);
+        return res.send(err.status || 400, err.message);
       }
       next();
     });
