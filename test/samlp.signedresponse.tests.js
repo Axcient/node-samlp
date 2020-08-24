@@ -36,7 +36,7 @@ describe("samlp signed response", function () {
           body = b;
           $ = cheerio.load(body);
           var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
-          var decoded = new Buffer(SAMLResponse, "base64").toString();
+          var decoded = Buffer.from(SAMLResponse, "base64").toString();
           signedResponse = /(<samlp:Response.*<\/samlp:Response>)/.exec(
             decoded
           )[1];
