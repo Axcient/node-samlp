@@ -47,7 +47,7 @@ describe("samlp logout error", function () {
         const $ = cheerio.load(html);
         const SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
         const RelayState = $('input[name="RelayState"]').attr("value");
-        const decoded = new Buffer(SAMLResponse, "base64").toString();
+        const decoded = Buffer.from(SAMLResponse, "base64").toString();
         expect(decoded).to.be.ok;
         expect(xmlhelper.getDestination(decoded)).to.equal(options.destination);
         expect(xmlhelper.getStatusCode(decoded)).to.equal(
@@ -73,7 +73,7 @@ describe("samlp logout error", function () {
         const $ = cheerio.load(html);
         const SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
         const RelayState = $('input[name="RelayState"]').attr("value");
-        const decoded = new Buffer(SAMLResponse, "base64").toString();
+        const decoded = Buffer.from(SAMLResponse, "base64").toString();
         expect(decoded).to.be.ok;
         expect(xmlhelper.getDestination(decoded)).to.equal(options.destination);
         expect(xmlhelper.getStatusCode(decoded)).to.equal(options.error.code);
@@ -98,7 +98,7 @@ describe("samlp logout error", function () {
         const $ = cheerio.load(html);
         const SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
         const RelayState = $('input[name="RelayState"]').attr("value");
-        const decoded = new Buffer(SAMLResponse, "base64").toString();
+        const decoded = Buffer.from(SAMLResponse, "base64").toString();
         expect(decoded).to.be.ok;
         expect(xmlhelper.getDestination(decoded)).to.equal(options.destination);
         expect(xmlhelper.getStatusCode(decoded)).to.equal(options.error.code);
@@ -121,7 +121,7 @@ describe("samlp logout error", function () {
     const res = Object.assign({}, mockRes, {
       redirect: (redirect_uri) => {
         const q = url.parse(redirect_uri, true).query;
-        zlib.inflateRaw(new Buffer(q.SAMLResponse, "base64"), function (
+        zlib.inflateRaw(Buffer.from(q.SAMLResponse, "base64"), function (
           err,
           decodedAndInflated
         ) {
@@ -151,7 +151,7 @@ describe("samlp logout error", function () {
         const $ = cheerio.load(html);
         const SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
         const RelayState = $('input[name="RelayState"]').attr("value");
-        const decoded = new Buffer(SAMLResponse, "base64").toString();
+        const decoded = Buffer.from(SAMLResponse, "base64").toString();
         expect(decoded).to.be.ok;
         expect(xmlhelper.getDestination(decoded)).to.equal(options.destination);
         expect(RelayState).to.equal(options.relayState);
