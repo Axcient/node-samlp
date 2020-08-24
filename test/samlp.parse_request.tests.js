@@ -28,9 +28,9 @@ describe("samlp parse response", function () {
         samlp.parseRequest(
           {
             query: {
-              SAMLRequest: new Buffer(requestWithAuthnContextClassRef).toString(
-                "base64"
-              ),
+              SAMLRequest: Buffer.from(
+                requestWithAuthnContextClassRef
+              ).toString("base64"),
               RelayState: "123",
             },
           },
@@ -63,7 +63,7 @@ describe("samlp parse response", function () {
         samlp.parseRequest(
           {
             query: {
-              SAMLRequest: new Buffer(
+              SAMLRequest: Buffer.from(
                 requestWithoutAuthnContextClassRef
               ).toString("base64"),
               RelayState: "123",
@@ -101,7 +101,7 @@ describe("samlp parse response", function () {
         samlp.parseRequest(
           {
             query: {
-              SAMLRequest: new Buffer(req).toString("base64"),
+              SAMLRequest: Buffer.from(req).toString("base64"),
               RelayState: "123",
             },
           },
@@ -152,10 +152,11 @@ describe("samlp parse response", function () {
 });
 
 function encodeAndDeflate(xml, cb) {
-  zlib.deflateRaw(new Buffer(xml), function (err, buffer) {
+  zlib.deflateRaw(Buffer.from(xml), function (err, buffer) {
     if (err) {
       return cb(err);
     }
+
     cb(null, buffer.toString("base64"));
   });
 }
