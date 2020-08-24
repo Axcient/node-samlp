@@ -94,7 +94,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
         body = b;
         $ = cheerio.load(body);
         var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
-        var decoded = new Buffer(SAMLResponse, "base64").toString();
+        var decoded = Buffer.from(SAMLResponse, "base64").toString();
         signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
           decoded
         )[1];
@@ -190,7 +190,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
             var SAMLResponse = query.SAMLResponse;
             RelayState = query.RelayState;
 
-            zlib.inflateRaw(new Buffer(SAMLResponse, "base64"), function (
+            zlib.inflateRaw(Buffer.from(SAMLResponse, "base64"), function (
               err,
               decodedAndInflated
             ) {
@@ -269,7 +269,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
             sessionParticipantLogoutRequestSignature =
               parsedQueryString.Signature;
 
-            zlib.inflateRaw(new Buffer(SAMLRequest, "base64"), function (
+            zlib.inflateRaw(Buffer.from(SAMLRequest, "base64"), function (
               err,
               decodedAndInflated
             ) {
@@ -394,7 +394,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
               sessionParticipantLogoutResponseSignature =
                 parsedQueryString.Signature;
 
-              zlib.inflateRaw(new Buffer(SAMLResponse, "base64"), function (
+              zlib.inflateRaw(Buffer.from(SAMLResponse, "base64"), function (
                 err,
                 decodedAndInflated
               ) {
@@ -576,7 +576,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
             sessionParticipantLogoutRequestSignature =
               parsedQueryString.Signature;
 
-            zlib.inflateRaw(new Buffer(SAMLRequest, "base64"), function (
+            zlib.inflateRaw(Buffer.from(SAMLRequest, "base64"), function (
               err,
               decodedAndInflated
             ) {
@@ -678,7 +678,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
             sessionParticipantLogoutRequestSignature =
               parsedQueryString.Signature;
 
-            zlib.inflateRaw(new Buffer(SAMLRequest, "base64"), function (
+            zlib.inflateRaw(Buffer.from(SAMLRequest, "base64"), function (
               err,
               decodedAndInflated
             ) {
@@ -806,7 +806,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
               sessionParticipant2LogoutRequestSignature =
                 parsedQueryString.Signature;
 
-              zlib.inflateRaw(new Buffer(SAMLRequest2, "base64"), function (
+              zlib.inflateRaw(Buffer.from(SAMLRequest2, "base64"), function (
                 err,
                 decodedAndInflated
               ) {
@@ -963,7 +963,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
             $ = cheerio.load(response.body);
             var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
             relayState = $('input[name="RelayState"]').attr("value");
-            samlResponse = new Buffer(SAMLResponse, "base64");
+            samlResponse = Buffer.from(SAMLResponse, "base64");
             signedAssertion = /(<samlp:StatusCode.*\/>)/.exec(samlResponse)[1];
             var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
             logoutResultValue = doc.documentElement.getAttribute("Value");
@@ -1029,7 +1029,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
             sessionParticipantLogoutRequestRelayState = $(
               'input[name="RelayState"]'
             ).attr("value");
-            sessionParticipantLogoutRequest = new Buffer(
+            sessionParticipantLogoutRequest = Buffer.from(
               SAMLRequest,
               "base64"
             ).toString();
@@ -1121,7 +1121,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
               sessionParticipantLogoutResponseRelayState = $(
                 'input[name="RelayState"]'
               ).attr("value");
-              sessionParticipantLogoutResponse = new Buffer(
+              sessionParticipantLogoutResponse = Buffer.from(
                 SAMLResponse,
                 "base64"
               ).toString();
@@ -1148,7 +1148,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
 
         it("should respond with a Success value", function () {
           var signedAssertion = /(<samlp:StatusCode.*\/>)/.exec(
-            new Buffer(SAMLResponse, "base64")
+            Buffer.from(SAMLResponse, "base64")
           )[1];
           var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
           var logoutResultValue = doc.documentElement.getAttribute("Value");
@@ -1223,7 +1223,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
             var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
             relayState = $('input[name="RelayState"]').attr("value");
             action = $("form").attr("action");
-            samlResponse = new Buffer(SAMLResponse, "base64");
+            samlResponse = Buffer.from(SAMLResponse, "base64");
             signedAssertion = /(<samlp:StatusCode.*\/>)/.exec(samlResponse)[1];
             var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
             logoutResultValue = doc.documentElement.getAttribute("Value");
@@ -1325,7 +1325,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
               sessionParticipantLogoutResponseRelayState = $(
                 'input[name="RelayState"]'
               ).attr("value");
-              sessionParticipantLogoutResponse = new Buffer(
+              sessionParticipantLogoutResponse = Buffer.from(
                 SAMLResponse,
                 "base64"
               ).toString();
@@ -1336,7 +1336,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
 
         it("should respond with a partial success value", function () {
           var signedAssertion = /(<samlp:StatusCode.*\/>)/.exec(
-            new Buffer(SAMLResponse, "base64")
+            Buffer.from(SAMLResponse, "base64")
           )[1];
           var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
           var logoutResultValue = doc.documentElement.getAttribute("Value");
@@ -1408,7 +1408,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
             sessionParticipantLogoutRequestRelayState = $(
               'input[name="RelayState"]'
             ).attr("value");
-            sessionParticipantLogoutRequest = new Buffer(
+            sessionParticipantLogoutRequest = Buffer.from(
               SAMLRequest,
               "base64"
             ).toString();
@@ -1457,7 +1457,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
 
         it("should respond with a Success value", function () {
           var signedAssertion = /(<samlp:StatusCode.*\/>)/.exec(
-            new Buffer(SAMLResponse, "base64")
+            Buffer.from(SAMLResponse, "base64")
           )[1];
           var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
           var logoutResultValue = doc.documentElement.getAttribute("Value");
