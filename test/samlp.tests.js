@@ -40,7 +40,7 @@ describe("samlp", function () {
           body = b;
           $ = cheerio.load(body);
           var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
-          var decoded = new Buffer(SAMLResponse, "base64").toString();
+          var decoded = Buffer.from(SAMLResponse, "base64").toString();
           signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
             decoded
           )[1];
@@ -185,7 +185,7 @@ describe("samlp", function () {
           body = b;
           $ = cheerio.load(body);
           var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
-          var decoded = new Buffer(SAMLResponse, "base64").toString();
+          var decoded = Buffer.from(SAMLResponse, "base64").toString();
           signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
             decoded
           )[1];
@@ -254,7 +254,7 @@ describe("samlp", function () {
           body = b;
           $ = cheerio.load(body);
           var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
-          var decoded = new Buffer(SAMLResponse, "base64").toString();
+          var decoded = Buffer.from(SAMLResponse, "base64").toString();
           signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
             decoded
           )[1];
@@ -297,7 +297,7 @@ describe("samlp", function () {
           body = b;
           $ = cheerio.load(body);
           var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
-          samlResponse = new Buffer(SAMLResponse, "base64").toString();
+          samlResponse = Buffer.from(SAMLResponse, "base64").toString();
           signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
             samlResponse
           )[1];
@@ -339,7 +339,7 @@ describe("samlp", function () {
           body = b;
           $ = cheerio.load(body);
           var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
-          samlResponse = new Buffer(SAMLResponse, "base64").toString();
+          samlResponse = Buffer.from(SAMLResponse, "base64").toString();
           signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
             samlResponse
           )[1];
@@ -407,7 +407,7 @@ describe("samlp", function () {
               uri: "http://localhost:5050/samlp",
               qs: {
                 RelayState: "123",
-                SAMLRequest: new Buffer(SAMLRequest).toString("base64"),
+                SAMLRequest: Buffer.from(SAMLRequest).toString("base64"),
               },
             },
             function (err, response) {
@@ -438,7 +438,7 @@ describe("samlp", function () {
               uri: "http://localhost:5050/samlp",
               qs: {
                 RelayState: "123",
-                SAMLRequest: new Buffer(SAMLRequest).toString("base64"),
+                SAMLRequest: Buffer.from(SAMLRequest).toString("base64"),
               },
             },
             function (err, response) {
@@ -469,7 +469,7 @@ describe("samlp", function () {
               uri: "http://localhost:5050/samlp",
               qs: {
                 RelayState: "123",
-                SAMLRequest: new Buffer(SAMLRequest).toString("base64"),
+                SAMLRequest: Buffer.from(SAMLRequest).toString("base64"),
               },
             },
             function (err, response) {
@@ -509,7 +509,7 @@ describe("samlp", function () {
               body = b;
               $ = cheerio.load(body);
               var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
-              samlResponse = new Buffer(SAMLResponse, "base64").toString();
+              samlResponse = Buffer.from(SAMLResponse, "base64").toString();
               signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
                 samlResponse
               )[1];
@@ -532,7 +532,7 @@ describe("samlp", function () {
           var SAMLRequest =
             '<?xml version="1.0" encoding="UTF-8"?><samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" AssertionConsumerServiceURL="https://acs" Destination="https://destination" ID="12345" IssueInstant="2013-04-28T22:43:42.386Z" ProtocolBinding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Version="2.0"><saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">http://sp</saml:Issuer></samlp:AuthnRequest>';
 
-          zlib.deflateRaw(new Buffer(SAMLRequest), function (err, buffer) {
+          zlib.deflateRaw(Buffer.from(SAMLRequest), function (err, buffer) {
             if (err) return done(err);
 
             request.get(
@@ -567,7 +567,7 @@ describe("samlp", function () {
           var SAMLRequest =
             '<?xml version="1.0" encoding="UTF-8"?><samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" AssertionConsumerServiceURL="https://acs" Destination="https://destination" ID="12345" IssueInstant="2013-04-28T22:43:42.386Z" ProtocolBinding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Version="2.0"><saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">http://sp</saml:Issuer></samlp:AuthnRequest>';
 
-          zlib.deflateRaw(new Buffer(SAMLRequest), function (err, buffer) {
+          zlib.deflateRaw(Buffer.from(SAMLRequest), function (err, buffer) {
             if (err) return done(err);
 
             request.get(
@@ -601,7 +601,7 @@ describe("samlp", function () {
           var SAMLRequest =
             '<?xml version="1.0" encoding="UTF-8"?><samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" AssertionConsumerServiceURL="https://acs" Destination="https://destination" ID="12345" IssueInstant="2013-04-28T22:43:42.386Z" ProtocolBinding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Version="2.0"><saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">http://sp</saml:Issuer></samlp:AuthnRequest>';
 
-          zlib.deflateRaw(new Buffer(SAMLRequest), function (err, buffer) {
+          zlib.deflateRaw(Buffer.from(SAMLRequest), function (err, buffer) {
             if (err) return done(err);
 
             request.get(
@@ -638,7 +638,7 @@ describe("samlp", function () {
           var SAMLRequest =
             '<?xml version="1.0" encoding="UTF-8"?><samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" AssertionConsumerServiceURL="https://acs" Destination="https://destination" ID="12345" IssueInstant="2013-04-28T22:43:42.386Z" ProtocolBinding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Version="2.0"><saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">http://sp</saml:Issuer></samlp:AuthnRequest>';
 
-          zlib.deflateRaw(new Buffer(SAMLRequest), function (err, buffer) {
+          zlib.deflateRaw(Buffer.from(SAMLRequest), function (err, buffer) {
             if (err) return done(err);
 
             request.get(
@@ -675,7 +675,7 @@ describe("samlp", function () {
           var SAMLRequest =
             '<?xml version="1.0" encoding="UTF-8"?><samlp:AuthnRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" AssertionConsumerServiceURL="https://acs" Destination="https://destination" ID="12345" IssueInstant="2013-04-28T22:43:42.386Z" ProtocolBinding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Version="2.0"><saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">http://sp</saml:Issuer></samlp:AuthnRequest>';
 
-          zlib.deflateRaw(new Buffer(SAMLRequest), function (err, buffer) {
+          zlib.deflateRaw(Buffer.from(SAMLRequest), function (err, buffer) {
             if (err) return done(err);
 
             request.get(
@@ -700,7 +700,7 @@ describe("samlp", function () {
                 var SAMLResponse = $('input[name="SAMLResponse"]').attr(
                   "value"
                 );
-                samlResponse = new Buffer(SAMLResponse, "base64").toString();
+                samlResponse = Buffer.from(SAMLResponse, "base64").toString();
                 signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
                   samlResponse
                 )[1];
@@ -736,7 +736,7 @@ describe("samlp", function () {
             body = b;
             $ = cheerio.load(body);
             var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
-            samlResponse = new Buffer(SAMLResponse, "base64").toString();
+            samlResponse = Buffer.from(SAMLResponse, "base64").toString();
             signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
               samlResponse
             )[1];
@@ -775,7 +775,7 @@ describe("samlp", function () {
             body = b;
             $ = cheerio.load(body);
             var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
-            samlResponse = new Buffer(SAMLResponse, "base64").toString();
+            samlResponse = Buffer.from(SAMLResponse, "base64").toString();
             signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
               samlResponse
             )[1];
@@ -811,7 +811,7 @@ describe("samlp", function () {
             body = b;
             $ = cheerio.load(body);
             var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
-            samlResponse = new Buffer(SAMLResponse, "base64").toString();
+            samlResponse = Buffer.from(SAMLResponse, "base64").toString();
             signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
               samlResponse
             )[1];
