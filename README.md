@@ -93,7 +93,7 @@ Options
 | protocolBinding     | the binding to use                                                                                           | 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST'                      |
 | sessionParticipants | an object that handles Session Participants. Check [this implementation](./lib/sessionParticipants/index.js) | An empty object. It is REQUIRED if you want to use SLO                |
 | clearIdPSession     | a function to be called when the logout process is finished so the IdP can clean its session                 | function (cb){ return cb();                                           |
-| store               | an object that handles the HTTP Session. Check [this implementation](./test/in_memory_store/)                | new SessionStore(options) Uses req.session to store the current state |
+| store               | an object that handles the HTTP Session. Check [this implementation](./test/inMemoryStore/)                  | new SessionStore(options) Uses req.session to store the current state |
 
 #### Notes
 
