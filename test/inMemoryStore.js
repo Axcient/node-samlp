@@ -1,8 +1,6 @@
 const uid = require("uid2");
 
 class InMemoryStore {
-  _memoryStore = {};
-
   constructor() {
     this.clear();
   }

@@ -4,6 +4,7 @@
   "description": "SAML Protocol server middleware",
   "main": "lib/index.js",
   "scripts": {
+    "lint": "eslint . --ext .js,.json",
     "test": "./node_modules/.bin/_mocha -R spec",
     "cover": "nyc ./node_modules/.bin/_mocha",
     "open_cover": "open coverage/lcov-report/*.html"
@@ -34,10 +35,12 @@
     "body-parser": "1.19.0",
     "chai": "4.2.0",
     "cheerio": "0.10.7",
+    "eslint": "7.7.0",
+    "eslint-config-hardcore": "12.6.0",
     "express": "3.11.0",
     "express-session": "1.14.2",
     "mocha": "1.8.1",
-    "nyc": "^15.1.0",
+    "nyc": "15.1.0",
     "request": "2.88.2",
     "timekeeper": "2.2.0",
     "uid2": "0.0.3"
