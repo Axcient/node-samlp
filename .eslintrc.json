@@ -33,7 +33,6 @@
     "no-inline-comments": "off",
     "no-inner-declarations": "off",
     "no-magic-numbers": "off",
-    "no-negated-condition": "off",
     "no-param-reassign": "off",
     "no-shadow": "off",
     "no-use-before-define": "off",
