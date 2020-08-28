@@ -36,7 +36,6 @@
     "no-param-reassign": "off",
     "no-shadow": "off",
     "no-use-before-define": "off",
-    "no-useless-return": "off",
     "no-undef": "off",
     "no-underscore-dangle": "off",
     "no-unused-expressions": "off",
