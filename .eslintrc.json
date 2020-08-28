@@ -68,7 +68,6 @@
     "import/order": "off",
     "node/callback-return": "off",
     "node/exports-style": "off",
-    "node/global-require": "off",
     "node/no-deprecated-api": "off",
     "node/no-process-env": "off",
     "node/no-sync": "off",

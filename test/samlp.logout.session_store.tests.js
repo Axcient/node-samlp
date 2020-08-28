@@ -177,7 +177,6 @@ describe("samlp logout with Session Participants - Session Provider", function (
           function (err, response) {
             if (err) return done(err);
             expect(response.statusCode).to.equal(302);
-            var qs = require("querystring");
             var i = response.headers.location.indexOf("SAMLResponse=");
             var query = qs.parse(response.headers.location.substr(i));
             var SAMLResponse = query.SAMLResponse;
@@ -371,7 +370,6 @@ describe("samlp logout with Session Participants - Session Provider", function (
                 return done(err);
               }
               expect(response.statusCode).to.equal(302);
-              var qs = require("querystring");
 
               var i = response.headers.location.indexOf("?");
               var completeQueryString = response.headers.location.substr(i + 1);
