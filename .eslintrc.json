@@ -21,7 +21,6 @@
     "camelcase": "off",
     "complexity": "off",
     "dot-notation": "off",
-    "eqeqeq": "off",
     "func-names": "off",
     "func-name-matching": "off",
     "func-style": "off",
