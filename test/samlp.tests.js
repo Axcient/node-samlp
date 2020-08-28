@@ -40,7 +40,7 @@ describe("samlp", function () {
 
       before(function () {
         server.options = {
-          profileMapper: function createProfileMapper(user) {
+          profileMapper: function profileMapper(user) {
             return new ProfileMapper(user);
           },
         };

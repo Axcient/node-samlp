@@ -20,7 +20,6 @@
   "rules": {
     "complexity": "off",
     "func-names": "off",
-    "func-name-matching": "off",
     "func-style": "off",
     "id-length": "off",
     "init-declarations": "off",
