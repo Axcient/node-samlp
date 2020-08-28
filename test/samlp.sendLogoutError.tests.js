@@ -34,9 +34,9 @@ describe("samlp logout error", function () {
     },
   };
 
-  const next = (err) => {
+  function next(err) {
     expect(err).to.be.undefined;
-  };
+  }
 
   it("with no error should return RESPONDER error", function () {
     const options = Object.assign({}, baseOptions, {});
