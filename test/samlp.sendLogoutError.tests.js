@@ -119,8 +119,8 @@ describe("samlp logout error", function () {
     });
 
     const res = Object.assign({}, mockRes, {
-      redirect: (redirect_uri) => {
-        const q = url.parse(redirect_uri, true).query;
+      redirect: (redirectURI) => {
+        const q = url.parse(redirectURI, true).query;
         zlib.inflateRaw(Buffer.from(q.SAMLResponse, "base64"), function (
           err,
           decodedAndInflated

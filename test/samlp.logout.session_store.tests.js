@@ -13,12 +13,12 @@ var path = require("path");
 var SPs = require("../lib/sessionParticipants");
 const timekeeper = require("timekeeper");
 
-var sp1_credentials = {
+var sp1Credentials = {
   cert: fs.readFileSync(path.join(__dirname, "fixture", "sp1.pem")),
   key: fs.readFileSync(path.join(__dirname, "fixture", "sp1.key")),
 };
 
-var sp2_credentials = {
+var sp2Credentials = {
   cert: fs.readFileSync(path.join(__dirname, "fixture", "sp2.pem")),
   key: fs.readFileSync(path.join(__dirname, "fixture", "sp2.key")),
 };
@@ -29,7 +29,7 @@ var sessionParticipant1 = {
   nameIdFormat: "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
   sessionIndex: "1",
   serviceProviderLogoutURL: "https://foobarsupport.zendesk.com/logout",
-  cert: sp1_credentials.cert, // SP1 public Cert
+  cert: sp1Credentials.cert, // SP1 public Cert
 };
 
 var sessionParticipant2 = {
@@ -38,7 +38,7 @@ var sessionParticipant2 = {
   nameIdFormat: "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
   sessionIndex: "2",
   serviceProviderLogoutURL: "https://foobarsupport.example.com/logout",
-  cert: sp2_credentials.cert, // SP2 public Cert
+  cert: sp2Credentials.cert, // SP2 public Cert
 };
 
 describe("samlp logout with Session Participants - Session Provider", function () {
@@ -111,7 +111,7 @@ describe("samlp logout with Session Participants - Session Provider", function (
           nameId: "foo@example.com",
           sessionIndex: "1",
           serviceProviderLogoutURL: "https://example.com/logout",
-          cert: sp1_credentials.cert, // SP1 public Cert
+          cert: sp1Credentials.cert, // SP1 public Cert
         });
       });
 
@@ -353,7 +353,7 @@ describe("samlp logout with Session Participants - Session Provider", function (
 
           // We need to sign the reponse here
           var signature = signers.sign(
-            { key: sp2_credentials.key, signatureAlgorithm: "rsa-sha1" },
+            { key: sp2Credentials.key, signatureAlgorithm: "rsa-sha1" },
             qs.stringify(params)
           );
           params.Signature = signature;
@@ -834,7 +834,7 @@ describe("samlp logout with Session Participants - Session Provider", function (
 
           // We need to sign the reponse here
           var signature = signers.sign(
-            { key: sp1_credentials.key, signatureAlgorithm: "rsa-sha1" },
+            { key: sp1Credentials.key, signatureAlgorithm: "rsa-sha1" },
             qs.stringify(params)
           );
           params.Signature = signature;
@@ -1242,7 +1242,7 @@ describe("samlp logout with Session Participants - Session Provider", function (
           nameIdFormat: "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
           sessionIndex: "1",
           serviceProviderLogoutURL: "https://example.com/logout",
-          cert: sp1_credentials.cert,
+          cert: sp1Credentials.cert,
         });
       });
 
@@ -1403,7 +1403,7 @@ describe("samlp logout with Session Participants - Session Provider", function (
         nameIdFormat: "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
         sessionIndex: "1",
         serviceProviderLogoutURL: "https://foobarsupport.zendesk.com/logout",
-        cert: sp1_credentials.cert, // SP1 public Cert
+        cert: sp1Credentials.cert, // SP1 public Cert
       };
 
       var sessionParticipant2 = {
@@ -1412,7 +1412,7 @@ describe("samlp logout with Session Participants - Session Provider", function (
         nameIdFormat: "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
         sessionIndex: "2",
         serviceProviderLogoutURL: "https://foobarsupport.example.com/logout",
-        cert: sp2_credentials.cert, // SP2 public Cert
+        cert: sp2Credentials.cert, // SP2 public Cert
       };
 
       // <samlp:LogoutRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="samlr-220c705e-c15e-11e6-98a4-ecf4bbce4318" IssueInstant="2016-12-13T18:01:12Z" Version="2.0">
@@ -1521,7 +1521,7 @@ describe("samlp logout with Session Participants - Session Provider", function (
           nameId: "foo@example.com",
           sessionIndex: "1",
           serviceProviderLogoutURL: "https://example.com/logout",
-          cert: sp1_credentials.cert,
+          cert: sp1Credentials.cert,
         });
       });
 
@@ -1566,7 +1566,7 @@ describe("samlp logout with Session Participants - Session Provider", function (
           nameId: "foo@example.com",
           sessionIndex: "1",
           serviceProviderLogoutURL: "https://example.com/logout",
-          cert: sp1_credentials.cert,
+          cert: sp1Credentials.cert,
         });
       });
 
@@ -1609,7 +1609,7 @@ describe("samlp logout with Session Participants - Session Provider", function (
           nameId: "foo@example.com",
           sessionIndex: "1",
           serviceProviderLogoutURL: "https://example.com/logout",
-          cert: sp1_credentials.cert,
+          cert: sp1Credentials.cert,
         });
       });
 

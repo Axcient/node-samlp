@@ -18,7 +18,6 @@
   "ignorePatterns": ["/.nyc_oputput/*", "/coverage/*", "/templates/*"],
 
   "rules": {
-    "camelcase": "off",
     "complexity": "off",
     "dot-notation": "off",
     "func-names": "off",
