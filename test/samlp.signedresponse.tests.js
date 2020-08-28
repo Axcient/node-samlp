@@ -35,10 +35,13 @@ describe("samlp signed response", function () {
         },
         function (err, response, b) {
           if (err) return done(err);
+
           body = b;
           $ = cheerio.load(body);
+
           var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
           var decoded = Buffer.from(SAMLResponse, "base64").toString();
+
           signedResponse = /(<samlp:Response.*<\/samlp:Response>)/.exec(
             decoded
           )[1];
@@ -52,11 +55,13 @@ describe("samlp signed response", function () {
         signedResponse,
         server.credentials.cert
       );
+
       expect(isValid).to.be.ok;
     });
 
     it("should use sha256 as default signature algorithm", function () {
       var algorithm = xmlhelper.getSignatureMethodAlgorithm(signedResponse);
+
       expect(algorithm).to.equal(
         "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
       );
@@ -64,17 +69,20 @@ describe("samlp signed response", function () {
 
     it("should use sha256 as default diigest algorithm", function () {
       var algorithm = xmlhelper.getDigestMethodAlgorithm(signedResponse);
+
       expect(algorithm).to.equal("http://www.w3.org/2001/04/xmlenc#sha256");
     });
 
     it("should use destination if defined", function () {
       var destination = xmlhelper.getDestination(signedResponse);
+
       expect(destination).to.equal("http://destination");
     });
 
     it("should have signature after issuer", function () {
       var doc = new xmldom.DOMParser().parseFromString(signedResponse);
       var signature = doc.documentElement.getElementsByTagName("Signature");
+
       expect(signature[0].previousSibling.nodeName).to.equal("saml:Issuer");
     });
   });

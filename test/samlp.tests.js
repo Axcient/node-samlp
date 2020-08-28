@@ -33,6 +33,7 @@ describe("samlp", function () {
       function ProfileMapper(user) {
         this.user = user;
       }
+
       ProfileMapper.prototype.getClaims = function () {
         return this.user;
       };
@@ -66,6 +67,7 @@ describe("samlp", function () {
             },
             function (err, response) {
               if (err) return done(err);
+
               expect(response.statusCode).to.equal(400);
               expect(response.body).to.equal(
                 "No attribute was found to generate the nameIdentifier. We tried with: id, email"
@@ -100,6 +102,7 @@ describe("samlp", function () {
                 },
                 function (err, response) {
                   if (err) return done(err);
+
                   expect(response.statusCode).to.equal(400);
                   expect(response.body).to.equal(
                     "No attribute was found to generate the nameIdentifier. We tried with: "
@@ -129,12 +132,15 @@ describe("samlp", function () {
         },
         function (err, response, b) {
           if (err) return done(err);
+
           expect(response.statusCode).to.equal(200);
 
           body = b;
           $ = cheerio.load(body);
+
           var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
           var decoded = Buffer.from(SAMLResponse, "base64").toString();
+
           signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
             decoded
           )[1];
@@ -157,6 +163,7 @@ describe("samlp", function () {
         signedAssertion,
         server.credentials.cert
       );
+
       expect(isValid).to.be.ok;
     });
 
@@ -164,11 +171,13 @@ describe("samlp", function () {
       var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
 
       var signature = doc.documentElement.getElementsByTagName("Signature");
+
       expect(signature[0].previousSibling.nodeName).to.equal("saml:Issuer");
     });
 
     it("should use sha256 as default signature algorithm", function () {
       var algorithm = xmlhelper.getSignatureMethodAlgorithm(signedAssertion);
+
       expect(algorithm).to.equal(
         "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
       );
@@ -176,6 +185,7 @@ describe("samlp", function () {
 
     it("should use sha256 as default digest algorithm", function () {
       var algorithm = xmlhelper.getDigestMethodAlgorithm(signedAssertion);
+
       expect(algorithm).to.equal("http://www.w3.org/2001/04/xmlenc#sha256");
     });
 
@@ -276,12 +286,15 @@ describe("samlp", function () {
         },
         function (err, response, b) {
           if (err) return done(err);
+
           expect(response.statusCode).to.equal(200);
 
           body = b;
           $ = cheerio.load(body);
+
           var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
           var decoded = Buffer.from(SAMLResponse, "base64").toString();
+
           signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
             decoded
           )[1];
@@ -324,6 +337,7 @@ describe("samlp", function () {
         },
         function (err, response) {
           if (err) return done(err);
+
           expect(response.statusCode).to.equal(401);
           done();
         }
@@ -349,12 +363,15 @@ describe("samlp", function () {
         },
         function (err, response, b) {
           if (err) return done(err);
+
           expect(response.statusCode).to.equal(200);
 
           body = b;
           $ = cheerio.load(body);
+
           var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
           var decoded = Buffer.from(SAMLResponse, "base64").toString();
+
           signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
             decoded
           )[1];
@@ -392,11 +409,14 @@ describe("samlp", function () {
         },
         function (err, response, b) {
           if (err) return done(err);
+
           expect(response.statusCode).to.equal(200);
 
           body = b;
           $ = cheerio.load(body);
+
           var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
+
           samlResponse = Buffer.from(SAMLResponse, "base64").toString();
           signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
             samlResponse
@@ -416,6 +436,7 @@ describe("samlp", function () {
 
     it("should send back the ID as InResponseTo", function () {
       var doc = new xmldom.DOMParser().parseFromString(samlResponse);
+
       expect(doc.documentElement.getAttribute("InResponseTo")).to.equal(
         "12345"
       );
@@ -434,11 +455,14 @@ describe("samlp", function () {
         },
         function (err, response, b) {
           if (err) return done(err);
+
           expect(response.statusCode).to.equal(200);
 
           body = b;
           $ = cheerio.load(body);
+
           var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
+
           samlResponse = Buffer.from(SAMLResponse, "base64").toString();
           signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
             samlResponse
@@ -462,6 +486,7 @@ describe("samlp", function () {
       var cert = fs.readFileSync(
         path.join(__dirname, "/fixture/samlp.test-cert.pem")
       );
+
       server.options = {
         signingCert: cert,
         thumbprints: [encoder.thumbprint(cert)],
@@ -483,6 +508,7 @@ describe("samlp", function () {
             },
             function (err, response) {
               if (err) return done(err);
+
               error = response.body;
               done();
             }
@@ -514,6 +540,7 @@ describe("samlp", function () {
             },
             function (err, response) {
               if (err) return done(err);
+
               error = response.body;
               done();
             }
@@ -545,6 +572,7 @@ describe("samlp", function () {
             },
             function (err, response) {
               if (err) return done(err);
+
               error = response.body;
               done();
             }
@@ -576,6 +604,7 @@ describe("samlp", function () {
             },
             function (err, response) {
               if (err) return done(err);
+
               error = response.body;
               done();
             }
@@ -595,6 +624,7 @@ describe("samlp", function () {
         before(function (done) {
           var samlRequest =
             "PHNhbWxwOkF1dGhuUmVxdWVzdCB4bWxuczpzYW1scD0idXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOnByb3RvY29sIiBEZXN0aW5hdGlvbj0iaHR0cDovL2xvY2FsaG9zdDo1MDUxL3NhbWxwIiBJRD0iX2NlZWFlZjQwMjAxNmMxMGRmM2FiIiBJc3N1ZUluc3RhbnQ9IjIwMTYtMTEtMDdUMTA6MTU6MjlaIiBQcm90b2NvbEJpbmRpbmc9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDpiaW5kaW5nczpIVFRQLVBPU1QiIFZlcnNpb249IjIuMCI+PFNpZ25hdHVyZSB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyI+PFNpZ25lZEluZm8+PENhbm9uaWNhbGl6YXRpb25NZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzEwL3htbC1leGMtYzE0biMiLz48U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS8wNC94bWxkc2lnLW1vcmUjcnNhLXNoYTI1NiIvPjxSZWZlcmVuY2UgVVJJPSIjX2NlZWFlZjQwMjAxNmMxMGRmM2FiIj48VHJhbnNmb3Jtcz48VHJhbnNmb3JtIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI2VudmVsb3BlZC1zaWduYXR1cmUiLz48VHJhbnNmb3JtIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS8xMC94bWwtZXhjLWMxNG4jIi8+PC9UcmFuc2Zvcm1zPjxEaWdlc3RNZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGVuYyNzaGEyNTYiLz48RGlnZXN0VmFsdWU+RzQ2eG9DbmhiZWUzRjB0cW0yWklMamkvTHRmZEJQNWdnTml3emcxOEVxUT08L0RpZ2VzdFZhbHVlPjwvUmVmZXJlbmNlPjwvU2lnbmVkSW5mbz48U2lnbmF0dXJlVmFsdWU+VzVzS3FsOHRTYVJVZm9HSUJsYXVXbmR6WXNsWmRxc3BSQmlsa2pGSTlXVkxrTXlmWWZCckJza1VLMzJDckdDb3JZc0FkZUEyYW9rSUYwL3RRVUNISXdHcmF0cWZGVDZiVVNQdVBoT2JsZ3UzcWpmODI2Tm5hNzl1S2I4OXdDQnoyRzF0US9JSEVPZlJUNjcwZ25oZ0NiTzV4VlFZZnQvbmxzU281QW1sbkx6QXZsZW5JNFhZT3JZd3Q4bkJ6MGVnM3NTUlJmVWt5UGx1TDE2ck84bFdSdWVqenp6R250SjFiZDM5QzBZc0k1SjlIOWxMTm9LTXh1MFJwU1B2Z0llaGhESGJoc24zRVlsd25OcldKMUdINlhIakxKdmV1dGJuVWp2V0NEZ2U3Wi9XRUc2V2Eya01hMGFYM0VJa2lNYk0zeDFFZzd3bk1jMGM4OU9TU1FCNFF3PT08L1NpZ25hdHVyZVZhbHVlPjxLZXlJbmZvPjxYNTA5RGF0YT48WDUwOUNlcnRpZmljYXRlPk1JSUR0VENDQXAyZ0F3SUJBZ0lKQU1LUi9Oc3lmY2F6TUEwR0NTcUdTSWIzRFFFQkJRVUFNRVV4Q3pBSkJnTlZCQVlUQWtGVk1STXdFUVlEVlFRSUV3cFRiMjFsTFZOMFlYUmxNU0V3SHdZRFZRUUtFeGhKYm5SbGNtNWxkQ0JYYVdSbmFYUnpJRkIwZVNCTWRHUXdIaGNOTVRJeE1URXlNak0wTXpReFdoY05NVFl4TWpJeE1qTTBNelF4V2pCRk1Rc3dDUVlEVlFRR0V3SkJWVEVUTUJFR0ExVUVDQk1LVTI5dFpTMVRkR0YwWlRFaE1COEdBMVVFQ2hNWVNXNTBaWEp1WlhRZ1YybGtaMmwwY3lCUWRIa2dUSFJrTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF2dEg0d0tMWWxJWFpsZllRRkp0WFpWQzNmRDhYTWFyend2Yi9mSFV5SjZOdk5TdE4rSDdHSHAzL1FoWmJTYVJ5cUs1aHU1eFh0RkxnbkkwUUc4b0UxTmxYYmN6akg0NUxlSFdoUElkYzJ1SFNwelhpYzc4a091Z01ZMXZuZzRKMTBQRjYrVDJGTmFpdjBpWGVJUXE5eGJ3d1BZcGZsVmlReUpuekdDSVo3VkdhbjZHYlJLenlUS2NCNTh5eDI0cEpxK0N2aUxYRVk1MlRJVzFsNWltY2pHdkx0bENwMXphOXFCWmE0WEdvVnFIaTFrUlhrZERTSHR5NmxaV2ozS3hvUnZUYmlhQkNIKzc1VTdyaWZTNmZSOWxxaldFNTdiQ0dvejcrQkJ1OVltUEt0STFLa3lIRnFXcHhhSmMvQUtmOXhnZytVdW1lcVZjaXJVbUFzSEpyTXdJREFRQUJvNEduTUlHa01CMEdBMVVkRGdRV0JCVHM4M25rTHRvWEZsbUJVdHMzRUl4Y1Z2a3ZjakIxQmdOVkhTTUViakJzZ0JUczgzbmtMdG9YRmxtQlV0czNFSXhjVnZrdmNxRkpwRWN3UlRFTE1Ba0dBMVVFQmhNQ1FWVXhFekFSQmdOVkJBZ1RDbE52YldVdFUzUmhkR1V4SVRBZkJnTlZCQW9UR0VsdWRHVnlibVYwSUZkcFpHZHBkSE1nVUhSNUlFeDBaSUlKQU1LUi9Oc3lmY2F6TUF3R0ExVWRFd1FGTUFNQkFmOHdEUVlKS29aSWh2Y05BUUVGQlFBRGdnRUJBQnc3dy81azRkNWRWRGdkL09PT21YZGFhQ0lLdnQ3ZDNudGx2MVNTdkFvS1Q4ZDhsdDk3RG01UnJtZWZCSTEzSTJ5aXZaZzViZlRnZTQrdkFWNlZkTEZkV2VGcDFiL0ZPWmtZVXY2QThvNUhXME9XUVlWWDI2eklxQmNHMlFybTNyZWlTbDVCTHZwajFXU3BDc1l2czVrYU80dkZwTWFrL0lDZ2RaRCtyeHd4ZjhWYi82Zm50S3l3V1NMZ3dLSDNtSitaMGtSbHBxMWcxb2llaU9tMS9ncFozNXMwWXVvclhaYmE5cHRmTENZU2dnZy9xYzNkM2QwdGJIcGxLWWt3Rm03ZjVPUkdIRFNENVNKbStnSTdSUEUrNGJPOHE3OVJQQWZiRzFVR3VKMGIvb2lnYWdjaUhoSnA4NTFTUVJZZjNKdU5TYzE3Qm5LMkw1SUV0empxcitRPTwvWDUwOUNlcnRpZmljYXRlPjwvWDUwOURhdGE+PC9LZXlJbmZvPjwvU2lnbmF0dXJlPjxzYW1sOklzc3VlciB4bWxuczpzYW1sPSJ1cm46b2FzaXM6bmFtZXM6dGM6U0FNTDoyLjA6YXNzZXJ0aW9uIj5odHRwczovL2F1dGgwLWRldi1lZC5teS5zYWxlc2ZvcmNlLmNvbTwvc2FtbDpJc3N1ZXI+PC9zYW1scDpBdXRoblJlcXVlc3Q+";
+
           request.get(
             {
               jar: request.jar(),
@@ -606,11 +636,14 @@ describe("samlp", function () {
             },
             function (err, response, b) {
               if (err) return done(err);
+
               expect(response.statusCode).to.equal(200);
 
               body = b;
               $ = cheerio.load(body);
+
               var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
+
               samlResponse = Buffer.from(SAMLResponse, "base64").toString();
               signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
                 samlResponse
@@ -648,6 +681,7 @@ describe("samlp", function () {
               },
               function (err, response) {
                 if (err) return done(err);
+
                 error = response.body;
                 done();
               }
@@ -684,6 +718,7 @@ describe("samlp", function () {
               },
               function (err, response) {
                 if (err) return done(err);
+
                 error = response.body;
                 done();
               }
@@ -719,6 +754,7 @@ describe("samlp", function () {
               },
               function (err, response) {
                 if (err) return done(err);
+
                 error = response.body;
                 done();
               }
@@ -756,6 +792,7 @@ describe("samlp", function () {
               },
               function (err, response) {
                 if (err) return done(err);
+
                 error = response.body;
                 done();
               }
@@ -799,9 +836,11 @@ describe("samlp", function () {
 
                 body = b;
                 $ = cheerio.load(body);
+
                 var SAMLResponse = $('input[name="SAMLResponse"]').attr(
                   "value"
                 );
+
                 samlResponse = Buffer.from(SAMLResponse, "base64").toString();
                 signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
                   samlResponse
@@ -833,11 +872,14 @@ describe("samlp", function () {
           },
           function (err, response, b) {
             if (err) return done(err);
+
             expect(response.statusCode).to.equal(200);
 
             body = b;
             $ = cheerio.load(body);
+
             var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
+
             samlResponse = Buffer.from(SAMLResponse, "base64").toString();
             signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
               samlResponse
@@ -852,6 +894,7 @@ describe("samlp", function () {
         var signature = doc.documentElement.getElementsByTagName(
           "ds:Signature"
         );
+
         expect(signature[0].parentNode.nodeName).to.equal("samlp:Response");
       });
     });
@@ -872,11 +915,14 @@ describe("samlp", function () {
           },
           function (err, response, b) {
             if (err) return done(err);
+
             expect(response.statusCode).to.equal(200);
 
             body = b;
             $ = cheerio.load(body);
+
             var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
+
             samlResponse = Buffer.from(SAMLResponse, "base64").toString();
             signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
               samlResponse
@@ -891,6 +937,7 @@ describe("samlp", function () {
         var signature = doc.documentElement.getElementsByTagName(
           "ds:Signature"
         );
+
         expect(signature[0].parentNode.nodeName).to.equal("saml:Assertion");
       });
     });
@@ -908,11 +955,14 @@ describe("samlp", function () {
           },
           function (err, response, b) {
             if (err) return done(err);
+
             expect(response.statusCode).to.equal(200);
 
             body = b;
             $ = cheerio.load(body);
+
             var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
+
             samlResponse = Buffer.from(SAMLResponse, "base64").toString();
             signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
               samlResponse
@@ -925,6 +975,7 @@ describe("samlp", function () {
       it("should return signature without signatureNamespacePrefix inside the assertion", function () {
         var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
         var signature = doc.documentElement.getElementsByTagName("Signature");
+
         expect(signature[0].parentNode.nodeName).to.equal("saml:Assertion");
       });
     });

@@ -34,12 +34,15 @@ module.exports.options = {};
 
 module.exports.start = function (options, callback) {
   module.exports.options = options;
+
   if (typeof options === "function") {
     callback = options;
+
     module.exports.options = {};
   }
 
   var app = express();
+
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(express.json());
 
@@ -71,6 +74,7 @@ module.exports.start = function (options, callback) {
       if (err) {
         return res.send(err.status || 400, err.message);
       }
+
       next();
     });
   });
@@ -102,6 +106,7 @@ module.exports.start = function (options, callback) {
       if (err) {
         return res.send(err.status || 400, err.message);
       }
+
       next();
     });
   });
@@ -122,11 +127,13 @@ module.exports.start = function (options, callback) {
       if (err) {
         return res.send(err.status || 400, err.message);
       }
+
       next();
     });
   });
 
   var server = http.createServer(app).listen(5050, callback);
+
   module.exports.close = server.close.bind(server);
 };
 

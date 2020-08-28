@@ -9,9 +9,11 @@ function certToPem(cert) {
   var pem = /-----BEGIN CERTIFICATE-----([^-]*)-----END CERTIFICATE-----/g.exec(
     cert.toString()
   );
+
   if (pem.length > 0) {
     return pem[1].replace(/[\n|\r\n]/g, "");
   }
+
   return null;
 }
 
@@ -26,6 +28,7 @@ describe("samlp metadata", function () {
 
   describe("request to metadata", function () {
     var doc, content;
+
     before(function (done) {
       request.get(
         {
@@ -35,6 +38,7 @@ describe("samlp metadata", function () {
         },
         function (err, response, b) {
           if (err) return done(err);
+
           content = b;
           doc = new xmldom.DOMParser().parseFromString(b).documentElement;
           done();
@@ -105,6 +109,7 @@ describe("samlp metadata", function () {
 
   describe("request to metadata with proxy", function () {
     var doc;
+
     before(function (done) {
       request.get(
         {
@@ -117,6 +122,7 @@ describe("samlp metadata", function () {
         },
         function (err, response, b) {
           if (err) return done(err);
+
           doc = new xmldom.DOMParser().parseFromString(b).documentElement;
           done();
         }

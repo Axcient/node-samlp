@@ -51,6 +51,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
   var testStore = new InMemoryStore();
 
   var frozenTime;
+
   before(() => {
     frozenTime = Date.now();
     timekeeper.freeze(frozenTime);
@@ -68,6 +69,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           if (returnError) {
             return cb(new Error("There was an error cleaning session"));
           }
+
           cb();
         },
         sessionParticipants: new SPs(sessions),
@@ -91,12 +93,15 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
       },
       function (err, response, b) {
         if (err) return done(err);
+
         expect(response.statusCode).to.equal(200);
 
         body = b;
         $ = cheerio.load(body);
+
         var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
         var decoded = Buffer.from(SAMLResponse, "base64").toString();
+
         signedAssertion = /(<saml:Assertion.*<\/saml:Assertion>)/.exec(
           decoded
         )[1];
@@ -141,6 +146,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           },
           function (err, response) {
             if (err) return done(err);
+
             expect(response.statusCode).to.equal(400);
             logoutResultValue = response.body;
 
@@ -185,10 +191,13 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           },
           function (err, response) {
             if (err) return done(err);
+
             expect(response.statusCode).to.equal(302);
+
             var i = response.headers.location.indexOf("SAMLResponse=");
             var query = qs.parse(response.headers.location.substr(i));
             var SAMLResponse = query.SAMLResponse;
+
             RelayState = query.RelayState;
 
             zlib.inflateRaw(Buffer.from(SAMLResponse, "base64"), function (
@@ -196,10 +205,13 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
               decodedAndInflated
             ) {
               if (err) return done(err);
+
               signedAssertion = /(<samlp:StatusCode.*\/>)/.exec(
                 decodedAndInflated
               )[1];
+
               var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
+
               logoutResultValue = doc.documentElement.getAttribute("Value");
 
               done();
@@ -256,6 +268,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           },
           function (err, response) {
             if (err) return done(err);
+
             // First it should come the LogoutRequest to the 2nd Session Participant as a redirect
             expect(response.statusCode).to.equal(302);
 
@@ -275,6 +288,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
               decodedAndInflated
             ) {
               if (err) return done(err);
+
               sessionParticipantLogoutRequest = decodedAndInflated.toString();
 
               done();
@@ -369,6 +383,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
             { key: sp2Credentials.key, signatureAlgorithm: "rsa-sha1" },
             qs.stringify(params)
           );
+
           params.Signature = signature;
 
           request.get(
@@ -381,6 +396,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
               if (err) {
                 return done(err);
               }
+
               expect(response.statusCode).to.equal(302);
 
               var i = response.headers.location.indexOf("?");
@@ -399,6 +415,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
                 decodedAndInflated
               ) {
                 if (err) return done(err);
+
                 sessionParticipantLogoutResponse = decodedAndInflated.toString();
 
                 done();
@@ -429,6 +446,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           )[1];
           var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
           var logoutResultValue = doc.documentElement.getAttribute("Value");
+
           expect(logoutResultValue).to.equal(
             "urn:oasis:names:tc:SAML:2.0:status:Success"
           );
@@ -494,6 +512,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           },
           function (err, res) {
             if (err) return done(err);
+
             response = res;
             done();
           }
@@ -527,6 +546,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           },
           function (err, response) {
             if (err) return done(err);
+
             expect(response.statusCode).to.equal(200);
             body = response.body;
 
@@ -563,6 +583,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           },
           function (err, response) {
             if (err) return done(err);
+
             expect(response.statusCode).to.equal(302);
 
             var i = response.headers.location.indexOf("?");
@@ -581,6 +602,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
               decodedAndInflated
             ) {
               if (err) return done(err);
+
               sessionParticipantLogoutRequest = decodedAndInflated.toString();
 
               done();
@@ -683,6 +705,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
               decodedAndInflated
             ) {
               if (err) return done(err);
+
               sessionParticipantLogoutRequest = decodedAndInflated.toString();
 
               done();
@@ -780,6 +803,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
             { key: sp1Credentials.key, signatureAlgorithm: "rsa-sha1" },
             qs.stringify(params)
           );
+
           params.Signature = signature;
 
           request.get(
@@ -793,6 +817,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
               if (err) {
                 return done(err);
               }
+
               expect(response.statusCode).to.equal(302);
 
               var i = response.headers.location.indexOf("?");
@@ -811,6 +836,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
                 decodedAndInflated
               ) {
                 if (err) return done(err);
+
                 sessionParticipant2LogoutRequest = decodedAndInflated.toString();
 
                 done();
@@ -849,6 +875,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           expect(sessionParticipant2LogoutRequestRelayState).to.exist;
           expect(sessionParticipant2LogoutRequestSigAlg).to.exist;
           expect(sessionParticipant2LogoutRequestSignature).to.exist;
+
           var params = {
             query: {
               SAMLRequest: SAMLRequest2,
@@ -908,6 +935,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
             if (err) {
               return done(err);
             }
+
             expect(response.statusCode).to.equal(400);
             logoutResultValue = response.body;
 
@@ -959,13 +987,18 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
             if (err) {
               return done(err);
             }
+
             expect(response.statusCode).to.equal(200);
             $ = cheerio.load(response.body);
+
             var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
+
             relayState = $('input[name="RelayState"]').attr("value");
             samlResponse = Buffer.from(SAMLResponse, "base64");
             signedAssertion = /(<samlp:StatusCode.*\/>)/.exec(samlResponse)[1];
+
             var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
+
             logoutResultValue = doc.documentElement.getAttribute("Value");
             done();
           }
@@ -1021,6 +1054,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           },
           function (err, response) {
             if (err) return done(err);
+
             // The response contains an HTTP Form that will be submitted to Session Participant 2
             // The Form includes a LogoutRequest signed by the IdP
             expect(response.statusCode).to.equal(200);
@@ -1074,6 +1108,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
         var doc = new xmldom.DOMParser().parseFromString(
           sessionParticipantLogoutRequest
         );
+
         expect(
           utils.validateSignature(
             { body: { SAMLRequest: SAMLRequest } },
@@ -1116,6 +1151,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
               if (err) {
                 return done(err);
               }
+
               $ = cheerio.load(response.body);
               SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
               sessionParticipantLogoutResponseRelayState = $(
@@ -1152,6 +1188,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           )[1];
           var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
           var logoutResultValue = doc.documentElement.getAttribute("Value");
+
           expect(logoutResultValue).to.equal(
             "urn:oasis:names:tc:SAML:2.0:status:Success"
           );
@@ -1165,6 +1202,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           var doc = new xmldom.DOMParser().parseFromString(
             sessionParticipantLogoutResponse
           );
+
           expect(
             utils.validateSignature(
               { body: { SAMLResponse: SAMLResponse } },
@@ -1218,14 +1256,19 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           },
           function (err, response) {
             if (err) return done(err);
+
             expect(response.statusCode).to.equal(200);
             $ = cheerio.load(response.body);
+
             var SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
+
             relayState = $('input[name="RelayState"]').attr("value");
             action = $("form").attr("action");
             samlResponse = Buffer.from(SAMLResponse, "base64");
             signedAssertion = /(<samlp:StatusCode.*\/>)/.exec(samlResponse)[1];
+
             var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
+
             logoutResultValue = doc.documentElement.getAttribute("Value");
 
             done();
@@ -1250,6 +1293,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
 
     describe("SP initiated - 2 Session Participants - Partial Logout with Error on SP", function () {
       var samlRequestRelayState;
+
       // <samlp:LogoutRequest xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="samlr-220c705e-c15e-11e6-98a4-ecf4bbce4318" IssueInstant="2016-12-13T18:01:12Z" Version="2.0">
       //   <saml:Issuer>https://foobarsupport.zendesk.com</saml:Issuer>
       //   <saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">foo@example.com</saml:NameID>
@@ -1278,10 +1322,13 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           },
           function (err, response) {
             if (err) return done(err);
+
             expect(response.statusCode).to.equal(200);
             $ = cheerio.load(response.body);
+
             // IDP Sends LogoutRequest to second IDP
             var SAMLRequest = $('input[name="SAMLRequest"]').attr("value");
+
             expect(SAMLRequest).to.be.ok;
 
             samlRequestRelayState = $('input[name="RelayState"]').attr("value");
@@ -1319,6 +1366,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
               if (err) {
                 return done(err);
               }
+
               expect(response.statusCode).to.equal(200);
               $ = cheerio.load(response.body);
               SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
@@ -1340,6 +1388,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           )[1];
           var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
           var logoutResultValue = doc.documentElement.getAttribute("Value");
+
           expect(logoutResultValue).to.equal(
             "urn:oasis:names:tc:SAML:2.0:status:PartialLogout"
           );
@@ -1402,6 +1451,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           },
           function (err, response) {
             if (err) return done(err);
+
             expect(response.statusCode).to.equal(200);
             $ = cheerio.load(response.body);
             SAMLRequest = $('input[name="SAMLRequest"]').attr("value");
@@ -1447,6 +1497,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
               if (err) {
                 return done(err);
               }
+
               expect(response.statusCode).to.equal(200);
               $ = cheerio.load(response.body);
               SAMLResponse = $('input[name="SAMLResponse"]').attr("value");
@@ -1461,6 +1512,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           )[1];
           var doc = new xmldom.DOMParser().parseFromString(signedAssertion);
           var logoutResultValue = doc.documentElement.getAttribute("Value");
+
           expect(logoutResultValue).to.equal(
             "urn:oasis:names:tc:SAML:2.0:status:PartialLogout"
           );
@@ -1499,6 +1551,7 @@ describe("samlp logout with Session Participants - Custom Provider", function ()
           },
           function (err, res) {
             if (err) return done(err);
+
             response = res;
 
             done();

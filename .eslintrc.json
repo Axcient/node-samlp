@@ -45,7 +45,6 @@
     "object-shorthand": "off",
     "one-var": "off",
     "operator-assignment": "off",
-    "padding-line-between-statements": "off",
     "prefer-destructuring": "off",
     "prefer-named-capture-group": "off",
     "prefer-object-spread": "off",

@@ -77,6 +77,7 @@ describe("samlp parse response", function () {
           function (err, result) {
             if (err) {
               done(err);
+
               return;
             }
 
@@ -98,6 +99,7 @@ describe("samlp parse response", function () {
       // There was a bug in xmldom causing an infinite loop in this case
       it("should return an empty object", function (done) {
         const req = "<samlp:AuthnRequest";
+
         samlp.parseRequest(
           {
             query: {
@@ -121,6 +123,7 @@ describe("samlp parse response", function () {
     describe("when request is not a malformed XML", function () {
       it("should return an error", function (done) {
         const samlRequestPlain = '<samlp:AuthnRequest foo="bar"></test>';
+
         encodeAndDeflate(samlRequestPlain, function (err, req) {
           if (err) {
             return done(err);
