@@ -51,7 +51,6 @@
     "prefer-template": "off",
     "require-unicode-regexp": "off",
     "spaced-comment": "off",
-    "ext/lines-between-object-properties": "off",
     "fp/no-class": "off",
     "fp/no-delete": "off",
     "fp/no-let": "off",

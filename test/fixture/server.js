@@ -12,10 +12,12 @@ var path = require("path");
 var fakeUser = {
   id: 12345678,
   displayName: "John Foo", // 'John Flatabøáíéíáíðøßdœïvn'
+
   name: {
     familyName: "Foo",
     givenName: "John",
   },
+
   emails: [
     {
       type: "work",

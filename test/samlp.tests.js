@@ -60,6 +60,7 @@ describe("samlp", function () {
           request.get(
             {
               jar: request.jar(),
+
               uri:
                 "http://localhost:5050/samlp?SAMLRequest=" +
                 urlEncodedSAMLRequest +
@@ -95,6 +96,7 @@ describe("samlp", function () {
               request.get(
                 {
                   jar: request.jar(),
+
                   uri:
                     "http://localhost:5050/samlp?SAMLRequest=" +
                     urlEncodedSAMLRequest +
@@ -125,6 +127,7 @@ describe("samlp", function () {
       request.get(
         {
           jar: request.jar(),
+
           uri:
             "http://localhost:5050/samlp?SAMLRequest=" +
             urlEncodedSAMLRequest +
@@ -279,6 +282,7 @@ describe("samlp", function () {
       request.get(
         {
           jar: request.jar(),
+
           uri:
             "http://localhost:5050/samlp?SAMLRequest=" +
             urlEncodedSAMLRequest +
@@ -330,6 +334,7 @@ describe("samlp", function () {
       request.get(
         {
           jar: request.jar(),
+
           uri:
             "http://localhost:5050/samlp?SAMLRequest=" +
             urlEncodedSAMLRequest +
@@ -356,6 +361,7 @@ describe("samlp", function () {
       request.get(
         {
           jar: request.jar(),
+
           uri:
             "http://localhost:5050/samlp?SAMLRequest=" +
             urlEncodedSAMLRequest +
@@ -404,6 +410,7 @@ describe("samlp", function () {
       request.get(
         {
           jar: request.jar(),
+
           uri:
             "http://localhost:5050/samlp?SAMLRequest=fZBPb4MwDMW%2FSuQ7fxrYhCygYqumVeo0VOgOu2U0WpEgYXGo9vGXwdDaS2%2BO7fi990vX333HztJQq1UGKz8EJlWjj636zOBQP3kJrPOURN8NWIz2pPbya5RkmfunCKdBBqNRqAW1hEr0ktA2WBUvO%2BR%2BiIPRVje6A1YQSWOd0KNWNPbSVNKc20Ye9rsMTtYOhEEgGgK2cQqtEnYytUyO%2F01g241zy6P4zpVEo9wqskLZDHi4irww9nhSc45xhDH3o%2BT%2BHVj5Z%2BShVXO8W64%2F5iXC57ouvfK1qoG9LZjcAsxQcBI3FzRunxULAsh%2FY7lUNKTBxaV8fl3Dzn8A&RelayState=123",
         },
@@ -450,6 +457,7 @@ describe("samlp", function () {
       request.get(
         {
           jar: request.jar(),
+
           uri:
             "http://localhost:5050/samlp?SAMLRequest=fZBPb4MwDMW%2FSuQ7fxrYhCygYqumVeo0VOgOu2U0WpEgYXGo9vGXwdDaS2%2BO7fi990vX333HztJQq1UGKz8EJlWjj636zOBQP3kJrPOURN8NWIz2pPbya5RkmfunCKdBBqNRqAW1hEr0ktA2WBUvO%2BR%2BiIPRVje6A1YQSWOd0KNWNPbSVNKc20Ye9rsMTtYOhEEgGgK2cQqtEnYytUyO%2F01g241zy6P4zpVEo9wqskLZDHi4irww9nhSc45xhDH3o%2BT%2BHVj5Z%2BShVXO8W64%2F5iXC57ouvfK1qoG9LZjcAsxQcBI3FzRunxULAsh%2FY7lUNKTBxaV8fl3Dzn8A",
         },
@@ -501,6 +509,7 @@ describe("samlp", function () {
           request.get(
             {
               jar: request.jar(),
+
               uri:
                 "http://localhost:5050/samlp?SAMLRequest=" +
                 urlEncodedSAMLRequest +
@@ -533,6 +542,7 @@ describe("samlp", function () {
             {
               jar: request.jar(),
               uri: "http://localhost:5050/samlp",
+
               qs: {
                 RelayState: "123",
                 SAMLRequest: Buffer.from(SAMLRequest).toString("base64"),
@@ -565,6 +575,7 @@ describe("samlp", function () {
             {
               jar: request.jar(),
               uri: "http://localhost:5050/samlp",
+
               qs: {
                 RelayState: "123",
                 SAMLRequest: Buffer.from(SAMLRequest).toString("base64"),
@@ -597,6 +608,7 @@ describe("samlp", function () {
             {
               jar: request.jar(),
               uri: "http://localhost:5050/samlp",
+
               qs: {
                 RelayState: "123",
                 SAMLRequest: Buffer.from(SAMLRequest).toString("base64"),
@@ -629,6 +641,7 @@ describe("samlp", function () {
             {
               jar: request.jar(),
               uri: "http://localhost:5050/samlp",
+
               qs: {
                 RelayState: "123",
                 SAMLRequest: samlRequest,
@@ -674,6 +687,7 @@ describe("samlp", function () {
               {
                 jar: request.jar(),
                 uri: "http://localhost:5050/samlp",
+
                 qs: {
                   RelayState: "123",
                   SAMLRequest: buffer.toString("base64"),
@@ -710,6 +724,7 @@ describe("samlp", function () {
               {
                 jar: request.jar(),
                 uri: "http://localhost:5050/samlp",
+
                 qs: {
                   RelayState: "123",
                   SAMLRequest: buffer.toString("base64"),
@@ -745,6 +760,7 @@ describe("samlp", function () {
               {
                 jar: request.jar(),
                 uri: "http://localhost:5050/samlp",
+
                 qs: {
                   RelayState: "123",
                   SAMLRequest: buffer.toString("base64"),
@@ -783,6 +799,7 @@ describe("samlp", function () {
               {
                 jar: request.jar(),
                 uri: "http://localhost:5050/samlp",
+
                 qs: {
                   RelayState: "123",
                   SAMLRequest: buffer.toString("base64"),
@@ -821,11 +838,14 @@ describe("samlp", function () {
               {
                 jar: request.jar(),
                 uri: "http://localhost:5050/samlp",
+
                 qs: {
                   RelayState: "123",
                   SAMLRequest: buffer.toString("base64"),
+
                   Signature:
                     "HaX739zOyRn4PR2pi1Bud05rHbPGfppz5x5crr2EuOzLbfNuvLeK//ZCNsC/R/8B4CWe2SYYCYJ6UhBRvhCx8G7H92TIw8TjbsTfAWemp6mJh+zBqaI2It8sFZMYntsbd0jfBo4CbuM8872cNQkdedV5V56gaErjBA8z3HoyTWpQi9nH2fjtmDDfoQmoVum5q+vgbm103qxjH0j/gR+OXi5Rne8ijMLhhXgt9EdLmN8OS6l1LRUPe3XDLz6ZKbo9T2k6GR1x+w6bN18JOdeCwDn+nx4fmPbGGrcz/DT/3mTL5MY7TeRDz8rGSCZ5+yDNtmgQ9Nv2O//joonmRBkF6Q==",
+
                   SigAlg: "http://www.w3.org/2000/09/xmldsig#rsa-sha1",
                 },
               },
@@ -867,6 +887,7 @@ describe("samlp", function () {
         request.get(
           {
             jar: request.jar(),
+
             uri:
               "http://localhost:5050/samlp?SAMLRequest=fZBPb4MwDMW%2FSuQ7fxrYhCygYqumVeo0VOgOu2U0WpEgYXGo9vGXwdDaS2%2BO7fi990vX333HztJQq1UGKz8EJlWjj636zOBQP3kJrPOURN8NWIz2pPbya5RkmfunCKdBBqNRqAW1hEr0ktA2WBUvO%2BR%2BiIPRVje6A1YQSWOd0KNWNPbSVNKc20Ye9rsMTtYOhEEgGgK2cQqtEnYytUyO%2F01g241zy6P4zpVEo9wqskLZDHi4irww9nhSc45xhDH3o%2BT%2BHVj5Z%2BShVXO8W64%2F5iXC57ouvfK1qoG9LZjcAsxQcBI3FzRunxULAsh%2FY7lUNKTBxaV8fl3Dzn8A&RelayState=123",
           },
@@ -910,6 +931,7 @@ describe("samlp", function () {
         request.get(
           {
             jar: request.jar(),
+
             uri:
               "http://localhost:5050/samlp?SAMLRequest=fZBPb4MwDMW%2FSuQ7fxrYhCygYqumVeo0VOgOu2U0WpEgYXGo9vGXwdDaS2%2BO7fi990vX333HztJQq1UGKz8EJlWjj636zOBQP3kJrPOURN8NWIz2pPbya5RkmfunCKdBBqNRqAW1hEr0ktA2WBUvO%2BR%2BiIPRVje6A1YQSWOd0KNWNPbSVNKc20Ye9rsMTtYOhEEgGgK2cQqtEnYytUyO%2F01g241zy6P4zpVEo9wqskLZDHi4irww9nhSc45xhDH3o%2BT%2BHVj5Z%2BShVXO8W64%2F5iXC57ouvfK1qoG9LZjcAsxQcBI3FzRunxULAsh%2FY7lUNKTBxaV8fl3Dzn8A&RelayState=123",
           },
@@ -950,6 +972,7 @@ describe("samlp", function () {
         request.get(
           {
             jar: request.jar(),
+
             uri:
               "http://localhost:5050/samlp?SAMLRequest=fZBPb4MwDMW%2FSuQ7fxrYhCygYqumVeo0VOgOu2U0WpEgYXGo9vGXwdDaS2%2BO7fi990vX333HztJQq1UGKz8EJlWjj636zOBQP3kJrPOURN8NWIz2pPbya5RkmfunCKdBBqNRqAW1hEr0ktA2WBUvO%2BR%2BiIPRVje6A1YQSWOd0KNWNPbSVNKc20Ye9rsMTtYOhEEgGgK2cQqtEnYytUyO%2F01g241zy6P4zpVEo9wqskLZDHi4irww9nhSc45xhDH3o%2BT%2BHVj5Z%2BShVXO8W64%2F5iXC57ouvfK1qoG9LZjcAsxQcBI3FzRunxULAsh%2FY7lUNKTBxaV8fl3Dzn8A&RelayState=123",
           },

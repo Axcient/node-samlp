@@ -24,6 +24,7 @@ describe("samlp logout error", function () {
       expect(contentTypeHeader).to.equal("Content-Type");
       expect(contentType).to.equal("text/html");
     },
+
     redirect: () => {},
     send: () => {},
   };

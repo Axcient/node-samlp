@@ -33,6 +33,7 @@ describe("samlp metadata", function () {
       request.get(
         {
           jar: request.jar(),
+
           uri:
             "http://localhost:5050/samlp/FederationMetadata/2007-06/FederationMetadata.xml",
         },
@@ -114,8 +115,10 @@ describe("samlp metadata", function () {
       request.get(
         {
           jar: request.jar(),
+
           uri:
             "http://localhost:5050/samlp/FederationMetadata/2007-06/FederationMetadata.xml",
+
           headers: {
             "X-Forwarded-Host": "myserver.com",
           },

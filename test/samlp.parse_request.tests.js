@@ -31,6 +31,7 @@ describe("samlp parse response", function () {
               SAMLRequest: Buffer.from(
                 requestWithAuthnContextClassRef
               ).toString("base64"),
+
               RelayState: "123",
             },
           },
@@ -46,6 +47,7 @@ describe("samlp parse response", function () {
               assertionConsumerServiceURL: "https://acs",
               destination: "https://destination",
               id: "pfxe6c08b2b-e9a1-5d44-9016-f4c2b59add88",
+
               requestedAuthnContext: {
                 authnContextClassRef:
                   "http://schemas.openid.net/pape/policies/2007/06/multi-factor",
@@ -66,6 +68,7 @@ describe("samlp parse response", function () {
               SAMLRequest: Buffer.from(
                 requestWithoutAuthnContextClassRef
               ).toString("base64"),
+
               RelayState: "123",
             },
           },

@@ -16,6 +16,7 @@ exports.verifySignature = function (assertion, cert) {
       getKeyInfo: function (key) {
         return "<X509Data></X509Data>";
       },
+
       getKey: function (keyInfo) {
         return cert;
       },
