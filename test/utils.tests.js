@@ -1,3 +1,5 @@
+"use strict";
+
 const timekeeper = require("timekeeper");
 const expect = require("chai").expect;
 

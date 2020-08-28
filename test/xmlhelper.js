@@ -1,3 +1,5 @@
+"use strict";
+
 var xmlCrypto = require("xml-crypto");
 var xmldom = require("xmldom");
 

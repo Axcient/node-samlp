@@ -1,3 +1,5 @@
+"use strict";
+
 const uid = require("uid2");
 
 class InMemoryStore {
