@@ -16,7 +16,7 @@
     "node": true
   },
 
-  "ignorePatterns": ["/.nyc_oputput/*", "/coverage/*", "/templates/*"],
+  "ignorePatterns": ["/.nyc_output/*", "/coverage/*", "/templates/*"],
 
   "rules": {
     "complexity": "off",
