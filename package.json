@@ -23,7 +23,7 @@
     "@auth0/thumbprint": "0.0.6",
     "debug": "4.1.1",
     "ejs": "3.1.5",
-    "flowstate": "0.4.1",
+    "flowstate": "0.6.0",
     "querystring": "0.2.0",
     "saml": "0.14.0",
     "xml-crypto": "1.5.3",
